@@ -1,1 +1,35 @@
-<p>musica works!</p>
+<html>
+   <h2>Minhas músicas</h2>
+    <table>
+        <tr>
+            <td><label>Título </label></td>
+            <td><input [(ngModel)]="musica.titulo" name="titulobox"></td>
+            <td><button (click)="criarMusica(musica)">Adicionar</button></td>
+        </tr>
+        <tr>
+         <td><label>Artista </label></td>
+         <td><input [(ngModel)]="musica.artista" name="artistabox"></td>
+        </tr>
+
+        <tr>
+            <td><label>Integrantes </label></td>
+            <td><input type= "text" name="integrantesbox" [(ngModel)] = "stringIntegrantes"> </td>
+        </tr>
+
+        <tr>
+            <td><label>ID </label></td>
+            <td><input [(ngModel)]="musica.id" name="idbox"></td>
+        </tr>
+    </table>
+
+
+    <table>
+        <ul >
+        <li *ngFor="let m of musicas" name="musicaslist" (click)="onSelect(m)">
+                <span class="badgeID">{{m.id}}</span> <span class="badge">{{m.artista}}</span> {{m.titulo}}
+        </li>
+    </ul>
+    </table>
+
+
+</html>

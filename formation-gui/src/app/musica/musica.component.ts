@@ -1,3 +1,5 @@
+import { Musica } from './../../../../formation-common/musica';
+import { MusicasService } from './musica.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,46 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MusicaComponent implements OnInit {
 
-  constructor() { }
+  stringIntegrantes: string;
+  musica: Musica = new Musica();
+  musicas: Musica[] = [];
+  musicaDuplicada: boolean = false;
+  selectedMusica: Musica;
 
-  ngOnInit() {
+  constructor(private musicasService: MusicasService) { }
+
+  criarMusica(m: Musica): void {
+    this.musica.integrantes = this.separaIntegrantes();
+    this.musicasService.criar(m)
+      .subscribe(
+        ar => {
+          if (ar) {
+            this.musicas.push(ar);
+            this.musica = new Musica();
+          } else {
+            this.musicaDuplicada = true;
+          }
+        },
+        msg => { alert(msg.message); }
+      );
   }
+
+  ngOnInit(): void {
+    this.musicasService.getMusicas()
+      .subscribe(
+        as => { this.musicas = as; },
+        msg => { alert(msg.message); }
+      );
+  }
+
+  onSelect(musica: Musica): void {
+    this.selectedMusica = musica;
+  }
+
+  separaIntegrantes() { 
+    var arrayIntegrantes = this.stringIntegrantes.split(",")
+    console.log(arrayIntegrantes)
+    return arrayIntegrantes;
+ }
 
 }

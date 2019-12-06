@@ -2,11 +2,14 @@ import express = require('express');
 import bodyParser = require("body-parser");
 
 import { Usuario } from '../formation-common/usuario';
+import { Musica } from './../formation-common/musica';
 import { CadastroDeUsuarios } from './cadastrodeusuarios';
+import { CadastroDeMusicas } from './cadastrodemusicas';
 
 var taserver = express();
 
 var cadastroU: CadastroDeUsuarios = new CadastroDeUsuarios();
+var cadastroM: CadastroDeMusicas = new CadastroDeMusicas();
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -41,6 +44,32 @@ taserver.put('/usuario', function (req: express.Request, res: express.Response) 
     res.send({"success": "O usuário foi atualizado com sucesso!!"});
   } else {
     res.send({"failure": "O usuário não pode ser atualizado :(("});
+  }
+})
+
+// MUSICA ---------------------------------------------------------------------------
+
+taserver.get('/musica', function (req: express.Request, res: express.Response) {
+  res.send(JSON.stringify(cadastroM.getMusicas()));
+})
+
+taserver.post('/musicas', function (req: express.Request, res: express.Response) {
+  var musica: Musica = <Musica> req.body; //verificar se é mesmo Música!
+  musica = cadastroM.cadastrar(musica);
+  if (musica) {
+    res.send({"success": "A música foi cadastrada com sucesso!!"});
+  } else {
+    res.send({"failure": "A música não pode ser cadastrada :(("});
+  }
+})
+
+taserver.put('/musicas', function (req: express.Request, res: express.Response) {
+  var musica: Musica = <Musica> req.body;
+  musica = cadastroM.atualizar(musica);
+  if (musica) {
+    res.send({"success": "A música foi atualizada com sucesso!!"});
+  } else {
+    res.send({"failure": "A música não pode ser atualizada :(("});
   }
 })
 
