@@ -14,6 +14,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCardModule} from '@angular/material/card';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { HomeComponent } from './home/home.component';
 import { MensagensComponent } from './mensagens/mensagens.component';
 import { AdministradorComponent } from './administrador/administrador.component';
@@ -48,7 +50,9 @@ import { FormacaoComponent } from './formacao/formacao.component';
     MatButtonModule,
     MatSnackBarModule,
     MatIconModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCardModule,
+    MatSlideToggleModule
   ],
   providers: [UsuarioService],
   bootstrap: [AppComponent]
