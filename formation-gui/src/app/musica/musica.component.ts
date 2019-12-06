@@ -25,6 +25,7 @@ export class MusicaComponent implements OnInit {
           if (ar) {
             this.musicas.push(ar);
             this.musica = new Musica();
+            this.stringIntegrantes = "";
           } else {
             this.musicaDuplicada = true;
           }

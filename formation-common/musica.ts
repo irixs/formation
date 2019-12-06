@@ -9,7 +9,7 @@ export class Musica {
     }
   
     clean(): void {
-      this.id = 0;
+      this.id = null;
       this.titulo = "";
       this.artista = "";
       this.integrantes = [];

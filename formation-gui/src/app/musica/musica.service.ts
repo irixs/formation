@@ -6,7 +6,9 @@ import { retry, map } from 'rxjs/operators';
 import { Musica } from './../../../../formation-common/musica';
 
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+  })
 export class MusicasService {
 
     private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -36,6 +38,7 @@ export class MusicasService {
             );
     }
 
+    /*
     deletaMusica (musica: Musica | number): Observable<Musica> {
         const id = typeof musica === 'number' ? musica : musica.id;
         const url = `${this.taURL + "/musicas"}/${id}`;
@@ -44,6 +47,6 @@ export class MusicasService {
            .pipe(
                
            );
-  }
+  } */
 
 }
