@@ -23,6 +23,7 @@ import { UsuarioService } from './usuario.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MusicaComponent } from './musica/musica.component';
 import { FormacaoComponent } from './formacao/formacao.component';
+import { MusicaDetalhesComponent } from './musica-detalhes/musica-detalhes.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { FormacaoComponent } from './formacao/formacao.component';
     AdministradorComponent,
     LoginComponent,
     MusicaComponent,
-    FormacaoComponent
+    FormacaoComponent,
+    MusicaDetalhesComponent
   ],
   imports: [
     BrowserModule,
