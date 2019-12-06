@@ -31,5 +31,13 @@
     </ul>
     </table>
 
+    <div *ngIf="selectedMusica">
+
+        <h2>{{selectedMusica.titulo | uppercase}} Details </h2>
+        <div><span>Artista: </span>{{selectedMusica.artista}}</div>
+        <div><span>Integrantes: </span> {{selectedMusica.integrantes}}</div>
+
+ </div>
+
 
 </html>
