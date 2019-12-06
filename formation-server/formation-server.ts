@@ -4,7 +4,7 @@ import bodyParser = require("body-parser");
 import { Usuario } from '../formation-common/usuario';
 import { CadastroDeUsuarios } from './cadastrodeusuarios';
 
-var taserver = express();
+var formationserver = express();
 
 var cadastroU: CadastroDeUsuarios = new CadastroDeUsuarios();
 
@@ -14,17 +14,17 @@ var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 }
-taserver.use(allowCrossDomain);
+formationserver.use(allowCrossDomain);
 
-taserver.use(bodyParser.json());
+formationserver.use(bodyParser.json());
 
 // USUARIO ---------------------------------------------------------------------------
 
-taserver.get('/usuarios', function (req: express.Request, res: express.Response) {
+formationserver.get('/usuarios', function (req: express.Request, res: express.Response) {
   res.send(JSON.stringify(cadastroU.getUsuarios()));
 })
 
-taserver.post('/usuario', function (req: express.Request, res: express.Response) {
+formationserver.post('/usuario', function (req: express.Request, res: express.Response) {
   var usuario: Usuario = <Usuario> req.body; //verificar se é mesmo Usuario!
   usuario = cadastroU.cadastrar(usuario);
   if (usuario) {
@@ -34,7 +34,7 @@ taserver.post('/usuario', function (req: express.Request, res: express.Response)
   }
 })
 
-taserver.put('/usuario', function (req: express.Request, res: express.Response) {
+formationserver.put('/usuario', function (req: express.Request, res: express.Response) {
   var usuario: Usuario = <Usuario> req.body;
   usuario = cadastroU.atualizar(usuario);
   if (usuario) {
@@ -44,9 +44,20 @@ taserver.put('/usuario', function (req: express.Request, res: express.Response) 
   }
 })
 
+//STUB MÚSICAS-----------------------------------------------------------------------
+
+let usuariosInteressados:String[] = [];
+var musicas = [{titulo:'Fancy',artista:'Twice',integrantes: ['Nayeon','Jeongyeon','Momo','Sana','Jihyo','Mina','Dahyun','Chaeyoung','Tzuyu'],usuariosInteressados}
+              ,{titulo:'Obsession',artista:'Exo',integrantes: ['Suho','Baekhyun','Chen','Chanyeol','Kai','Sehun'],usuariosInteressados}
+              ,{titulo:'I\'m so sick',artista:'Apink',integrantes: ['Chorong','Bomi','Eunji','NaEun','NamJoo','Hayoung'],usuariosInteressados}];
+
+formationserver.get('/musicas', function (req: express.Request, res: express.Response) {
+  res.send(JSON.stringify(musicas));
+})
+
 //-----------------------------------------------------------------------------------
 
-var server = taserver.listen(3000, function () {
+var server = formationserver.listen(3000, function () {
   console.log('Example app listening on port 3000!')
 })
 
