@@ -1,4 +1,8 @@
+import { Formacao } from './formacao';
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-formacao',
@@ -6,6 +10,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./formacao.component.scss']
 })
 export class FormacaoComponent implements OnInit {
+
+  toppings = new FormControl();
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+
 
   constructor() { }
 

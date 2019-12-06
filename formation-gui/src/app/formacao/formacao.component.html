@@ -1,1 +1,55 @@
-<p>formacao works!</p>
+
+<mat-card>
+  <h2>HEY MAMA</h2> 
+  <mat-slide-toggle>Adaptação</mat-slide-toggle>
+  <table>
+
+    <tr>
+        <th>Xiumin</th>
+        
+        <th>
+        <mat-form-field>
+          <mat-label>Toppings</mat-label>
+          <mat-select [formControl]="toppings" multiple>
+            <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        </th>
+
+    </tr>
+
+    <tr>
+        <th>Baek </th>
+        
+        <th>
+        <mat-form-field>
+          <mat-label>Toppings</mat-label>
+          <mat-select [formControl]="toppings" multiple>
+            <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        </th>
+        
+    </tr>
+
+
+    <tr>
+        <th>Chen </th>
+        
+        <th>
+        <mat-form-field>
+          <mat-label>Toppings</mat-label>
+          <mat-select [formControl]="toppings" multiple>
+            <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        </th>
+        
+    </tr>
+
+  </table>
+
+  <button mat-button>Submeter formationn ~~</button>
+
+
+</mat-card>
