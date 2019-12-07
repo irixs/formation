@@ -4,9 +4,13 @@ import bodyParser = require("body-parser");
 import { Usuario } from '../formation-common/usuario';
 import { CadastroDeUsuarios } from './cadastrodeusuarios';
 
+import { Musica } from '../formation-common/musica';
+import { CadastroDeMusicas } from './cadastrodemusicas';
+
 var formationserver = express();
 
 var cadastroU: CadastroDeUsuarios = new CadastroDeUsuarios();
+var cadastroM: CadastroDeMusicas = new CadastroDeMusicas();
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -53,6 +57,16 @@ var musicas = [{titulo:'Fancy',id:'1',artista:'Twice',integrantes: ['Nayeon','Je
 
 formationserver.get('/musicas', function (req: express.Request, res: express.Response) {
   res.send(JSON.stringify(musicas));
+})
+
+formationserver.put('/musica', function (req: express.Request, res: express.Response) {
+  var musica: Musica = <Musica> req.body;
+  musica = cadastroM.atualizar(musica);
+  if (musica) {
+    res.send({"success": "A música foi atualizada com sucesso!!"});
+  } else {
+    res.send({"failure": "A música não pode ser atualizada :(("});
+  }
 })
 
 //-----------------------------------------------------------------------------------
