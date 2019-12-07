@@ -3,10 +3,12 @@ import bodyParser = require("body-parser");
 
 import { Usuario } from '../formation-common/usuario';
 import { CadastroDeUsuarios } from './cadastrodeusuarios';
-
+import { Formacao} from '../formation-gui/src/app/formacao/formacao'
+import {CadastroDeFormacao} from './cadastrodeformacao';
 var taserver = express();
 
 var cadastroU: CadastroDeUsuarios = new CadastroDeUsuarios();
+var cadastroF: CadastroDeFormacao = new CadastroDeFormacao();
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -23,6 +25,7 @@ taserver.use(bodyParser.json());
 taserver.get('/usuarios', function (req: express.Request, res: express.Response) {
   res.send(JSON.stringify(cadastroU.getUsuarios()));
 })
+
 
 taserver.post('/usuario', function (req: express.Request, res: express.Response) {
   var usuario: Usuario = <Usuario> req.body; //verificar se é mesmo Usuario!
@@ -41,6 +44,32 @@ taserver.put('/usuario', function (req: express.Request, res: express.Response) 
     res.send({"success": "O usuário foi atualizado com sucesso!!"});
   } else {
     res.send({"failure": "O usuário não pode ser atualizado :(("});
+  }
+})
+
+// FORMACAO ---------------------------------------------------------------------------
+
+taserver.get('/formacoes', function (req: express.Request, res: express.Response) {
+  res.send(JSON.stringify(cadastroF.getFormacoes()));
+})
+
+taserver.post('/formaca', function (req: express.Request, res: express.Response) {
+  var formacao: Formacao = <Formacao> req.body; //verificar se é mesmo Usuario!
+  formacao = cadastroF.cadastrar(formacao);
+  if (formacao) {
+    res.send({"success": "A formação foi cadastrada com sucesso!!"});
+  } else {
+    res.send({"failure": "A formação não pode ser cadastrada :(("});
+  }
+})
+
+taserver.put('/formacao', function (req: express.Request, res: express.Response) {
+  var formacao: Formacao = <Formacao> req.body;
+  formacao = cadastroF.atualizar(formacao);
+  if (formacao) {
+    res.send({"success": "A formação foi atualizada com sucesso!!"});
+  } else {
+    res.send({"failure": "A formação não pode ser atualizada :(("});
   }
 })
 

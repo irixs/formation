@@ -2,15 +2,15 @@ import { Musica } from '../../../../formation-common/musica';
 
 export class Formacao {
     musica: Musica;
-    associacao: Map<string,string>;
+    associacao: Map<String,String[]> [];
   
     constructor() {
       this.clean();
     }
   
     clean(): void {
-      this.musica.clean();
-      this.associacao.clear()
+      this.musica = new Musica();
+      this.associacao = [];
     }
   
     clone(): Formacao {

@@ -1,7 +1,8 @@
 import { Formacao } from './formacao';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-
+import { FormacaoService } from './formacao.service'
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -11,13 +12,38 @@ import { FormControl } from '@angular/forms';
 })
 export class FormacaoComponent implements OnInit {
 
-  toppings = new FormControl();
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  nomeDoFormControl = new FormControl();
 
+  associacoesDeFormacoes = [];
+  
+  formacoes : Formacao[];
 
-  constructor() { }
+  constructor(private serviceF : FormacaoService) { }
+  
+  submeter () {
+    for (let i =0; i<this.associacoesDeFormacoes.length; i++){ // para cada formacao
+      let associacoesIntegrantes = [];
+      for (let j=0; j<this.associacoesDeFormacoes[i].length; j++){ // para cada integrante da musica da formacao
+        let associacaoIntegrante = new Map<String,String[]>();
+        associacaoIntegrante.set(this.formacoes[i].musica.integrantes[j], this.associacoesDeFormacoes[i][j].value);
+        associacoesIntegrantes.push(associacaoIntegrante);
+      }
+      this.formacoes[i].associacao = associacoesIntegrantes;
+      this.serviceF.atualizar(this.formacoes[i])
+    }
+  }
 
   ngOnInit() {
+    this.serviceF.getFormacoes().subscribe(formacoes => {
+      this.formacoes = formacoes
+      this.formacoes.forEach(f => {
+        let a = []
+        f.musica.integrantes.forEach(i => {
+          a.push(new FormControl())
+        })
+        this.associacoesDeFormacoes.push(a);
+      })
+    })
   }
 
 }

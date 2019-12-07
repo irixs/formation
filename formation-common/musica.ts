@@ -5,7 +5,10 @@ export class Musica {
     usuariosInteressados: String[];
   
     constructor() {
-      this.clean();
+      this.titulo = "";
+      this.artista = "";
+      this.integrantes = [];
+      this.usuariosInteressados = [];
     }
 
     clean(): void {
