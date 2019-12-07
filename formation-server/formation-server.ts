@@ -47,9 +47,9 @@ formationserver.put('/usuario', function (req: express.Request, res: express.Res
 //STUB MÚSICAS-----------------------------------------------------------------------
 
 let usuariosInteressados:String[] = [];
-var musicas = [{titulo:'Fancy',artista:'Twice',integrantes: ['Nayeon','Jeongyeon','Momo','Sana','Jihyo','Mina','Dahyun','Chaeyoung','Tzuyu'],usuariosInteressados}
-              ,{titulo:'Obsession',artista:'Exo',integrantes: ['Suho','Baekhyun','Chen','Chanyeol','Kai','Sehun'],usuariosInteressados}
-              ,{titulo:'I\'m so sick',artista:'Apink',integrantes: ['Chorong','Bomi','Eunji','NaEun','NamJoo','Hayoung'],usuariosInteressados}];
+var musicas = [{titulo:'Fancy',id:'1',artista:'Twice',integrantes: ['Nayeon','Jeongyeon','Momo','Sana','Jihyo','Mina','Dahyun','Chaeyoung','Tzuyu'],usuariosInteressados}
+              ,{titulo:'Obsession',id:'2',artista:'Exo',integrantes: ['Suho','Baekhyun','Chen','Chanyeol','Kai','Sehun'],usuariosInteressados}
+              ,{titulo:'I\'m so sick',id:'3',artista:'Apink',integrantes: ['Chorong','Bomi','Eunji','NaEun','NamJoo','Hayoung'],usuariosInteressados}];
 
 formationserver.get('/musicas', function (req: express.Request, res: express.Response) {
   res.send(JSON.stringify(musicas));
