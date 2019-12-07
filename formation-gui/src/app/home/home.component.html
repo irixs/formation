@@ -1,10 +1,9 @@
-<mat-toolbar-row>
-        <span>Músicas Disponíveis</span>
-    </mat-toolbar-row>
-    <mat-toolbar-row>
-        <mat-card class="music-card"> Fancy
-            <mat-slide-toggle class="corner">Quero Participar!</mat-slide-toggle>
+        <mat-toolbar-row>Músicas Disponíveis</mat-toolbar-row>
+
+        <div class="music-container">
+        <mat-card class="music-card" *ngFor="let musica of musicas; let i = index"> <span>{{musica.titulo}} - {{ musica.artista }}</span>
+            <mat-slide-toggle class="corner" [(ngModel)]="interesses[i]" (change)="alterarInteresses(i)">Quero Participar!</mat-slide-toggle>
         </mat-card>
-    </mat-toolbar-row>
+    </div>
         
     

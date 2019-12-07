@@ -16,11 +16,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatListModule} from '@angular/material/list';
 import { HomeComponent } from './home/home.component';
 import { MensagensComponent } from './mensagens/mensagens.component';
 import { AdministradorComponent } from './administrador/administrador.component';
 import { LoginComponent } from './login/login.component';
 import { UsuarioService } from './usuario.service';
+import { MusicasService } from './musica/musica.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MusicaComponent } from './musica/musica.component';
 import { FormacaoComponent } from './formacao/formacao.component';
@@ -52,9 +54,10 @@ import { FormacaoComponent } from './formacao/formacao.component';
     MatIconModule,
     MatExpansionModule,
     MatCardModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatListModule
   ],
-  providers: [UsuarioService],
+  providers: [UsuarioService, MusicasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,26 @@
 .music-card {
-    display: inline;
+    display: flex;
+    flex-direction: row;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    width: calc(700px - 32px);
+    justify-content: space-between
 }
+
+.music-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+
+}
+
 .corner {
     padding-left: 1cm;
+}
+
+@media (max-width: 724px) 
+{
+  .music-card {
+     width: calc(100% - 32px);
+   }
 }
