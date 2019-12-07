@@ -1,7 +1,7 @@
 
 <mat-card *ngFor="let formacao of formacoes; let i = index"> 
   <h2>{{formacao.musica.titulo}}</h2> 
-  <mat-slide-toggle>Adaptação</mat-slide-toggle>
+  <mat-slide-toggle [(ngModel)]="permiteAdaptacao" >Adaptação</mat-slide-toggle>
   <table>
 
     <tr  *ngFor="let integrante of formacao.musica.integrantes; let j = index">

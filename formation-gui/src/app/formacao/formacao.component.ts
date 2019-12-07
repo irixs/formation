@@ -1,4 +1,4 @@
-import { Formacao } from './formacao';
+import { Formacao } from '../../../../formation-common/formacao';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FormacaoService } from './formacao.service'
@@ -23,6 +23,7 @@ export class FormacaoComponent implements OnInit {
   submeter () {
     for (let i =0; i<this.associacoesDeFormacoes.length; i++){ // para cada formacao
       let associacoesIntegrantes = [];
+      
       for (let j=0; j<this.associacoesDeFormacoes[i].length; j++){ // para cada integrante da musica da formacao
         let associacaoIntegrante = new Map<String,String[]>();
         associacaoIntegrante.set(this.formacoes[i].musica.integrantes[j], this.associacoesDeFormacoes[i][j].value);

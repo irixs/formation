@@ -1,8 +1,9 @@
-import { Musica } from '../../../../formation-common/musica';
+import { Musica } from './musica';
+import { Usuario } from './usuario';
 
 export class Formacao {
     musica: Musica;
-    associacao: Map<String,String[]> [];
+    associacao: Map<String,Usuario[]> [];
   
     constructor() {
       this.clean();

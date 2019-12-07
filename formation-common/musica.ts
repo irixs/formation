@@ -1,8 +1,10 @@
+import { Usuario } from './usuario';
+
 export class Musica {
     titulo: string;
     artista: string;
     integrantes: String [];
-    usuariosInteressados: String[];
+    usuariosInteressados: Usuario[];
   
     constructor() {
       this.titulo = "";

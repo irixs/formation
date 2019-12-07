@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { retry, map, catchError } from 'rxjs/operators';
 
-import { Formacao } from './formacao';
+import { Formacao } from '../../../../formation-common/formacao';
 
 @Injectable()
 export class FormacaoService {

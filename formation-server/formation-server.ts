@@ -3,7 +3,7 @@ import bodyParser = require("body-parser");
 
 import { Usuario } from '../formation-common/usuario';
 import { CadastroDeUsuarios } from './cadastrodeusuarios';
-import { Formacao} from '../formation-gui/src/app/formacao/formacao'
+import { Formacao} from '../formation-common/formacao'
 import {CadastroDeFormacao} from './cadastrodeformacao';
 var taserver = express();
 

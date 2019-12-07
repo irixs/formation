@@ -1,5 +1,6 @@
-import { Formacao } from '../formation-gui/src/app/formacao/formacao';
+import { Formacao } from '../formation-common/formacao';
 import { Musica } from '../formation-common/musica';
+import { Usuario } from '../formation-common/usuario';
 
 
 export class CadastroDeFormacao {
@@ -10,7 +11,25 @@ export class CadastroDeFormacao {
     m.titulo = "Let's Kill SSE";
     m.artista = "BlackPink";
     m.integrantes = ["Jisoo", "Jennie", "Lisa", "Rosé"];
-    m.usuariosInteressados = ["Erick", "Íris", "Aline", "Beca", "Marconi"]
+
+    let usuario1 = new Usuario();
+    usuario1.nome = "Erick";
+    usuario1.participacoes = 2;
+
+    let usuario2 = new Usuario();
+    usuario2.nome = "Íris";
+    usuario2.participacoes = 3;
+
+    let usuario3 = new Usuario();
+    usuario3.nome = "Aline"
+
+    let usuario4 = new Usuario();
+    usuario4.nome = "Beca"
+
+    let usuario5 = new Usuario();
+    usuario5.nome = "Marconi"
+
+    m.usuariosInteressados = [usuario1, usuario2, usuario3, usuario4, usuario5]
     f.musica = m;
     f.associacao = [];
     this.formacoes.push(f);
@@ -25,6 +44,7 @@ export class CadastroDeFormacao {
     }
     return result;
   }
+
 
   formacaoNaoCadastrada(titulo: string, artista: string): boolean {
     return !this.formacoes.find(a => a.musica.titulo == titulo && a.musica.artista == artista);
