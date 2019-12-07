@@ -16,16 +16,23 @@ export class MusicasService {
 
     constructor(private http: HttpClient) { }
 
+    criar(musica: Musica): Observable<Musica> {
+        return this.http.post<any>(this.taURL + "/musicas", musica, { headers: this.headers })
+            .pipe(
+                retry(2),
+                map(res => { if (res.success) { return musica; } else { return null; } })
+            );
+    }
+
     atualizar(musica: Musica): Observable<Musica> {
-        console.log(this.http.put<any>(this.taURL + "/musica", JSON.stringify(musica), { headers: this.headers }));
-        return this.http.put<any>(this.taURL + "/musica", JSON.stringify(musica), { headers: this.headers }).pipe(
+        return this.http.put<any>(this.taURL + "/musicas", JSON.stringify(musica), { headers: this.headers }).pipe(
             retry(2),
-            map(res => { if (res.success) { console.log("algo1");return musica; } else { return null; } })
+            map(res => { if (res.success) { return musica; } else { return null; } })
         );
     }
 
     getMusicas(): Observable<Musica[]> {
-        return this.http.get<Musica[]>(this.taURL + "/musicas")
+        return this.http.get<Musica[]>(this.taURL + "/musica")
             .pipe(
                 retry(2)
             );

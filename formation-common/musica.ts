@@ -1,4 +1,5 @@
 export class Musica {
+    id: number;
     titulo: string;
     artista: string;
     integrantes: String [];
@@ -9,6 +10,7 @@ export class Musica {
     }
   
     clean(): void {
+      this.id = null;
       this.titulo = "";
       this.artista = "";
       this.integrantes = [];
@@ -23,6 +25,7 @@ export class Musica {
     }
   
     copyFrom(from: Musica): void {
+      this.id = from.id;
       this.titulo = from.titulo;
       this.artista = from.artista;
       this.integrantes = from.integrantes;

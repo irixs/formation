@@ -1,1 +1,37 @@
-<p>musica works!</p>
+<html>
+   <h2>Minhas músicas</h2>
+
+   <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Título" [(ngModel)]="musica.titulo" name="titulobox">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+                <input matInput placeholder="Artista" [(ngModel)]="musica.artista" name="artistabox">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+                <input matInput placeholder="Integrantes" [(ngModel)]="stringIntegrantes" name="integrantesbox">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+                <input matInput placeholder="ID" [(ngModel)]="musica.id" name="idbox">
+        </mat-form-field>
+        
+      </form>
+
+      <td><button mat-button color="primary" (click)="criarMusica(musica)">Adicionar</button></td>
+
+
+    <table>
+        <ul class="musica">
+        <li *ngFor="let m of musicas" name="musicaslist" (click)="onSelect(m)">
+                <span class="badgeID">{{m.id}}</span> <span class="badge">{{m.artista}}</span> {{m.titulo}}
+        </li>
+    </ul>
+    </table>
+
+    <app-musica-detalhes [musicaSelect]="selectedMusica"></app-musica-detalhes>
+
+
+</html>
