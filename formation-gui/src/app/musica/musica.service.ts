@@ -16,6 +16,14 @@ export class MusicasService {
 
     constructor(private http: HttpClient) { }
 
+    criar(musica: Musica): Observable<Musica> {
+        return this.http.post<any>(this.taURL + "/musicas", musica, { headers: this.headers })
+            .pipe(
+                retry(2),
+                map(res => { if (res.success) { return musica; } else { return null; } })
+            );
+    }
+
     atualizar(musica: Musica): Observable<Musica> {
         return this.http.put<any>(this.taURL + "/musicas", JSON.stringify(musica), { headers: this.headers }).pipe(
             retry(2),
@@ -24,7 +32,7 @@ export class MusicasService {
     }
 
     getMusicas(): Observable<Musica[]> {
-        return this.http.get<Musica[]>(this.taURL + "/musicas")
+        return this.http.get<Musica[]>(this.taURL + "/musica")
             .pipe(
                 retry(2)
             );

@@ -2,11 +2,14 @@ import express = require('express');
 import bodyParser = require("body-parser");
 
 import { Usuario } from '../formation-common/usuario';
+import { Musica } from './../formation-common/musica';
 import { CadastroDeUsuarios } from './cadastrodeusuarios';
+import { CadastroDeMusicas } from './cadastrodemusicas';
 
 var formationserver = express();
 
 var cadastroU: CadastroDeUsuarios = new CadastroDeUsuarios();
+var cadastroM: CadastroDeMusicas = new CadastroDeMusicas();
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -44,15 +47,30 @@ formationserver.put('/usuario', function (req: express.Request, res: express.Res
   }
 })
 
-//STUB MÚSICAS-----------------------------------------------------------------------
+// MUSICA ---------------------------------------------------------------------------
 
-let usuariosInteressados:String[] = [];
-var musicas = [{titulo:'Fancy',id:'1',artista:'Twice',integrantes: ['Nayeon','Jeongyeon','Momo','Sana','Jihyo','Mina','Dahyun','Chaeyoung','Tzuyu'],usuariosInteressados}
-              ,{titulo:'Obsession',id:'2',artista:'Exo',integrantes: ['Suho','Baekhyun','Chen','Chanyeol','Kai','Sehun'],usuariosInteressados}
-              ,{titulo:'I\'m so sick',id:'3',artista:'Apink',integrantes: ['Chorong','Bomi','Eunji','NaEun','NamJoo','Hayoung'],usuariosInteressados}];
+formationserver.get('/musica', function (req: express.Request, res: express.Response) {
+  res.send(JSON.stringify(cadastroM.getMusicas()));
+})
 
-formationserver.get('/musicas', function (req: express.Request, res: express.Response) {
-  res.send(JSON.stringify(musicas));
+formationserver.post('/musicas', function (req: express.Request, res: express.Response) {
+  var musica: Musica = <Musica> req.body; //verificar se é mesmo Música!
+  musica = cadastroM.cadastrar(musica);
+  if (musica) {
+    res.send({"success": "A música foi cadastrada com sucesso!!"});
+  } else {
+    res.send({"failure": "A música não pode ser cadastrada :(("});
+  }
+})
+
+formationserver.put('/musicas', function (req: express.Request, res: express.Response) {
+  var musica: Musica = <Musica> req.body;
+  musica = cadastroM.atualizar(musica);
+  if (musica) {
+    res.send({"success": "A música foi atualizada com sucesso!!"});
+  } else {
+    res.send({"failure": "A música não pode ser atualizada :(("});
+  }
 })
 
 //-----------------------------------------------------------------------------------

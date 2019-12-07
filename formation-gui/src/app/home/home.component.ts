@@ -12,8 +12,41 @@ export class HomeComponent implements OnInit {
 
   musicas: Musica[] = [];
   interesses: boolean[] = [];
+  cpf: string;
 
-  constructor(private musicasService: MusicasService, private snackBar: MatSnackBar) { }
+  constructor(private musicasService: MusicasService, private snackBar: MatSnackBar) { this.cpf = localStorage.getItem('loginCpf');}
+
+  atualizarMarcadores() {
+    let index = 0;
+    for (let musica of this.musicas) {
+      this.interesses[index] = musica.usuariosInteressados.includes(this.cpf);
+      index++;
+    }
+  }
+
+  alterarInteresses(index: number) {
+    if (this.interesses[index] == true) {
+      console.log(this.musicas[index]);
+      this.musicas[index].usuariosInteressados.push(this.cpf);
+      console.log(this.musicas[index].usuariosInteressados);
+      this.musicasService.atualizar(this.musicas[index]).subscribe(
+        (a) => { if (a == null) alert("Não rolou não"); },
+        (msg) => { alert(msg.message); }
+     );
+  
+      const snackBar = this.snackBar.open(`Interesse em ${this.musicas[index].titulo} confirmado com sucesso!`, 'OK');
+    } else {
+      console.log("algoasda");
+      this.musicas[index].usuariosInteressados.splice(this.musicas[index].usuariosInteressados.findIndex(cpf => cpf == localStorage.getItem('loginCpf')), 1);
+      this.musicasService.atualizar(this.musicas[index]).subscribe(
+        (a) => { if (a == null) alert("Não rolou não"); },
+        (msg) => { alert(msg.message); }
+     );
+      const snackBar = this.snackBar.open(`Interesse em ${this.musicas[index].titulo} negado com sucesso!`, 'OK');
+
+    }
+  }
+//this.musicasService.atualizar(this.musicas[index]);
 
   ngOnInit() {
     this.musicasService.getMusicas()
@@ -24,28 +57,6 @@ export class HomeComponent implements OnInit {
       },
       msg => { alert(msg.message); }
     );
-  }
-
-  atualizarMarcadores() {
-    let index = 0;
-    const cpf = localStorage.getItem('loginCpf');
-    for (let musica of this.musicas) {
-      this.interesses[index] = musica.usuariosInteressados.includes(cpf);
-      index++;
-    }
-  }
-
-  alterarInteresses(index: number) {
-    if (this.interesses[index] == true) {
-      this.musicas[index].usuariosInteressados.push(localStorage.getItem("loginCpf"));
-      this.musicasService.atualizar(this.musicas[index]);
-      const snackBar = this.snackBar.open(`Interesse em ${this.musicas[index].titulo} confirmado com sucesso!`, 'OK');
-    } else {
-      this.musicas[index].usuariosInteressados.splice(this.musicas[index].usuariosInteressados.findIndex(cpf => cpf == localStorage.getItem('loginCpf')), 1);
-      this.musicasService.atualizar(this.musicas[index]);
-      const snackBar = this.snackBar.open(`Interesse em ${this.musicas[index].titulo} negado com sucesso!`, 'OK');
-
-    }
   }
 
 }
