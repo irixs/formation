@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FormacaoService } from './formacao.service'
 import { MusicasService } from '../musica/musica.service';
+import { Usuario } from '../../../../formation-common/usuario';
 
 
 @Component({
@@ -22,27 +23,40 @@ export class FormacaoComponent implements OnInit {
   constructor(private serviceF : FormacaoService, private serviceM : MusicasService) { }
   
   submeter () {
-  //   for (let i =0; i<this.associacoesDeFormacoes.length; i++){ // para cada formacao
-  //     let associacoesIntegrantes = [];
+
+    for (let i =0; i<this.associacoesDeFormacoes.length; i++){ // para cada formacao
+      let associacoesIntegrantes = [];
       
-  //     for (let j=0; j<this.associacoesDeFormacoes[i].length; j++){ // para cada integrante da musica da formacao
-  //       let associacaoIntegrante = new Map<String,String[]>();
-  //       associacaoIntegrante.set(this.formacoes[i].musica.integrantes[j], this.associacoesDeFormacoes[i][j].value);
-  //       associacoesIntegrantes.push(associacaoIntegrante);
-  //     }
-  //     this.formacoes[i].associacao = associacoesIntegrantes;
-  //     this.serviceF.atualizar(this.formacoes[i])
-  //   }
+      for (let j=0; j<this.associacoesDeFormacoes[i].length; j++){ // para cada integrante da musica da formacao
+        let usuariosMarcados : Usuario [] = []
+        for (let k=0; k<this.associacoesDeFormacoes[i][j].length; k++){
+          usuariosMarcados.push(this.encontrarUsuarioMarcado(this.formacoes[i], this.associacoesDeFormacoes[i][j][k]))
+        }
+        this.formacoes[i].associacao.set(this.formacoes[i].musica.integrantes[j], usuariosMarcados);
+      }
+
+      this.serviceF.atualizar(this.formacoes[i])
+    }
   }
 
 
 
+
+  encontrarUsuarioMarcado(formacao: Formacao, nome:string) : Usuario{
+    formacao.musica.usuariosInteressados.forEach(usuario => {
+      if (usuario.nome == nome){
+        return usuario;
+      }
+    });
+      return (null)
+  }
+  
   ngOnInit() {
 
     this.serviceM.getMusicas()
     .subscribe(
       musicas => 
-      { console.log(musicas)
+      { 
         musicas.forEach(musica => {
           this.formacao.musica = musica;
           this.formacao.iniciarAssociacao();
@@ -65,7 +79,6 @@ export class FormacaoComponent implements OnInit {
     .subscribe(
       formacoes => {
         this.formacoes = formacoes
-        console.log(formacoes)
 
       // - - - - - PASSO II : criar matriz de FormControl para cada integrante, de cada formacao - - - - - - 
       // é o modo como informações são extraidas do elemento html de selecao - - - -  
