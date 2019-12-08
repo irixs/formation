@@ -5,9 +5,13 @@ import { Usuario } from '../formation-common/usuario';
 import { CadastroDeUsuarios } from './cadastrodeusuarios';
 import { Formacao} from '../formation-common/formacao'
 import {CadastroDeFormacao} from './cadastrodeformacao';
+import {CadastroDeMusica} from './cadastrodemusica';
+import { Musica } from '../formation-common/musica';
+
 var taserver = express();
 
 var cadastroU: CadastroDeUsuarios = new CadastroDeUsuarios();
+var cadastroM: CadastroDeMusica = new CadastroDeMusica();
 var cadastroF: CadastroDeFormacao = new CadastroDeFormacao();
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
@@ -25,7 +29,6 @@ taserver.use(bodyParser.json());
 taserver.get('/usuarios', function (req: express.Request, res: express.Response) {
   res.send(JSON.stringify(cadastroU.getUsuarios()));
 })
-
 
 taserver.post('/usuario', function (req: express.Request, res: express.Response) {
   var usuario: Usuario = <Usuario> req.body; //verificar se é mesmo Usuario!
@@ -47,14 +50,20 @@ taserver.put('/usuario', function (req: express.Request, res: express.Response) 
   }
 })
 
+// MUSICA ---------------------------------------------------------------------------
+
+taserver.get('/musicas', function (req: express.Request, res: express.Response) {
+  res.send(JSON.stringify(cadastroM.getMusicas()));
+})
+
 // FORMACAO ---------------------------------------------------------------------------
 
 taserver.get('/formacoes', function (req: express.Request, res: express.Response) {
   res.send(JSON.stringify(cadastroF.getFormacoes()));
 })
 
-taserver.post('/formaca', function (req: express.Request, res: express.Response) {
-  var formacao: Formacao = <Formacao> req.body; //verificar se é mesmo Usuario!
+taserver.post('/formacao', function (req: express.Request, res: express.Response) {
+  var formacao: Formacao = <Formacao> req.body; //verificar se é mesmo Formacao!
   formacao = cadastroF.cadastrar(formacao);
   if (formacao) {
     res.send({"success": "A formação foi cadastrada com sucesso!!"});

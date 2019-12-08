@@ -5,13 +5,14 @@ import { retry, map, catchError } from 'rxjs/operators';
 
 import { Formacao } from '../../../../formation-common/formacao';
 
-@Injectable()
+
+@Injectable({
+  providedIn: 'root'
+})
+
 export class FormacaoService {
-
-    private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     private taURL = 'http://localhost:3000';
-
-    constructor(private http: HttpClient) { }
 
     criar(formacao: Formacao): Observable<Formacao> {
         return this.http.post<any>(this.taURL + "/formacao", formacao, { headers: this.headers })
@@ -34,5 +35,12 @@ export class FormacaoService {
                 retry(2)
             );
     }
+
+    private tratarErro(erro: any): Promise<any>{
+        console.error('Acesso mal sucedido ao serviço de formacoes',erro);
+        return Promise.reject(erro.message || erro);
+      }
+
+  constructor(private http: HttpClient) { }
 
 }
