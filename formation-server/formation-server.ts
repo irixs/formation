@@ -5,11 +5,14 @@ import { Usuario } from '../formation-common/usuario';
 import { Musica } from './../formation-common/musica';
 import { CadastroDeUsuarios } from './cadastrodeusuarios';
 import { CadastroDeMusicas } from './cadastrodemusicas';
+import { Formacao} from '../formation-common/formacao'
+import {CadastroDeFormacao} from './cadastrodeformacao';
 
 var formationserver = express();
 
 var cadastroU: CadastroDeUsuarios = new CadastroDeUsuarios();
 var cadastroM: CadastroDeMusicas = new CadastroDeMusicas();
+var cadastroF: CadastroDeFormacao = new CadastroDeFormacao();
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -70,6 +73,31 @@ formationserver.put('/musicas', function (req: express.Request, res: express.Res
     res.send({"success": "A música foi atualizada com sucesso!!"});
   } else {
     res.send({"failure": "A música não pode ser atualizada :(("});
+  }
+})
+// FORMACAO ---------------------------------------------------------------------------
+
+formationserver.get('/formacoes', function (req: express.Request, res: express.Response) {
+  res.send(JSON.stringify(cadastroF.getFormacoes()));
+})
+
+formationserver.post('/formacao', function (req: express.Request, res: express.Response) {
+  var formacao: Formacao = <Formacao> req.body; //verificar se é mesmo Formacao!
+  formacao = cadastroF.cadastrar(formacao);
+  if (formacao) {
+    res.send({"success": "A formação foi cadastrada com sucesso!!"});
+  } else {
+    res.send({"failure": "A formação não pode ser cadastrada :(("});
+  }
+})
+
+formationserver.put('/formacao', function (req: express.Request, res: express.Response) {
+  var formacao: Formacao = <Formacao> req.body;
+  formacao = cadastroF.atualizar(formacao);
+  if (formacao) {
+    res.send({"success": "A formação foi atualizada com sucesso!!"});
+  } else {
+    res.send({"failure": "A formação não pode ser atualizada :(("});
   }
 })
 

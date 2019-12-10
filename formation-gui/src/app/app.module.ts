@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,10 +14,11 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatIconModule} from '@angular/material/icon';
-import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
+import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatListModule} from '@angular/material/list';
+import {MatSelectModule} from '@angular/material/select';
 import { HomeComponent } from './home/home.component';
 import { MensagensComponent } from './mensagens/mensagens.component';
 import { AdministradorComponent } from './administrador/administrador.component';
@@ -27,6 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MusicaComponent } from './musica/musica.component';
 import { FormacaoComponent } from './formacao/formacao.component';
 import { MusicaDetalhesComponent } from './musica-detalhes/musica-detalhes.component';
+import { FormacaoService } from './formacao/formacao.service';
+
 
 
 @NgModule({
@@ -57,9 +61,11 @@ import { MusicaDetalhesComponent } from './musica-detalhes/musica-detalhes.compo
     MatExpansionModule,
     MatCardModule,
     MatSlideToggleModule,
-    MatListModule
+    MatListModule,
+    MatSelectModule,
+    ReactiveFormsModule
   ],
-  providers: [UsuarioService, MusicasService],
+  providers: [UsuarioService, MusicasService, FormacaoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
