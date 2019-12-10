@@ -11,15 +11,15 @@ let pAND = ((p,q,r) => p.then(a => q.then(b => r.then(c => (a && b) && c))))
 
 defineSupportCode(function ({ Given, When, Then }) {
 
-    Given(/^eu estou na pagina de login$/, async () => {
+    Given(/^eu estou logada como "([^\"]*)" com CPF "(\d*)"$/, async (nome, cpf) => {
         await browser.get("http://localhost:4200/");
         await expect(browser.getTitle()).to.eventually.equal('FormationGui');
         // CADASTRO
-        await $("input[name='cpfbox']").sendKeys(<string> "701");
-        await $("input[name='nomebox']").sendKeys(<string> "Rebeca");
+        await $("input[name='cpfbox']").sendKeys(<string> cpf);
+        await $("input[name='nomebox']").sendKeys(<string> nome);
         await element(by.buttonText('Cadastrar')).click();
         // LOGIN
-        await $("input[name='loginbox']").sendKeys(<string> "701");
+        await $("input[name='loginbox']").sendKeys(<string> cpf);
         await element(by.buttonText('Fazer login')).click();
     })
 
@@ -36,7 +36,7 @@ defineSupportCode(function ({ Given, When, Then }) {
         await samemusica.then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(0));
     });
 
-    When(/^eu cadastro uma musica com titulo “([^\"]*)”, artista “([^\"]*)”, integrantes “([^\"]*)” e ID "(\d*)"$/, async (titulo, artista, integrantes, id) => {
+    When(/^eu tento cadastrar uma musica com titulo “([^\"]*)”, artista “([^\"]*)”, integrantes “([^\"]*)” e ID "(\d*)"$/, async (titulo, artista, integrantes, id) => {
         await $("input[name='titulobox']").sendKeys(<string> titulo);
         await $("input[name='artistabox']").sendKeys(<string> artista);
         await $("input[name='integrantesbox']").sendKeys(<string> integrantes);
@@ -48,6 +48,29 @@ defineSupportCode(function ({ Given, When, Then }) {
         var allmusicas : ElementArrayFinder = element.all(by.name('musicaslist'));
         await allmusicas.filter(elem => pAND(sameArtista(elem,artista),sameTitulo(elem,titulo),sameID(elem,id))).then
                    (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
+    });
+
+    Given(/^existe uma música com titulo “([^\"]*)”, artista “([^\"]*)” e ID "(\d*)" na lista de musicas disponiveis$/, async (titulo, artista, id) => {
+        await $("input[name='titulobox']").sendKeys(<string> titulo);
+        await $("input[name='artistabox']").sendKeys(<string> artista);
+        await $("input[name='integrantesbox']").sendKeys(<string> "Sungjin,Young K,Jae,Wonpil,Dowoon");
+        await $("input[name='idbox']").sendKeys(<string> id);
+        await element(by.buttonText('Adicionar')).click();
+        var allmusicas : ElementArrayFinder = element.all(by.name('musicaslist'));
+        await allmusicas.filter(elem => pAND(sameArtista(elem,artista),sameTitulo(elem,titulo),sameID(elem,id))).then
+                   (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
+    });
+
+    Then(/^eu nao vejo na lista musicas disponiveis a musica com titulo “([^\"]*)”, artista “([^\"]*)” e ID "(\d*)" duplicada$/, async (titulo, artista, id) => {
+        var allmusicas : ElementArrayFinder = element.all(by.name('musicaslist'));
+        await allmusicas.filter(elem => pAND(sameArtista(elem,artista),sameTitulo(elem,titulo),sameID(elem,id))).then
+                   (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
+    });
+
+    Then(/^eu nao vejo na lista musicas disponiveis a musica com titulo “([^\"]*)”, artista “([^\"]*)” e ID "(\d*)"$/, async (titulo, artista, id) => {
+        var allmusicas : ElementArrayFinder = element.all(by.name('musicaslist'));
+        await allmusicas.filter(elem => pAND(sameArtista(elem,artista),sameTitulo(elem,titulo),sameID(elem,id))).then
+                   (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(0));
     });
 
 })
