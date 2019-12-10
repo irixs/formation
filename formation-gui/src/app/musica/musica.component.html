@@ -26,7 +26,7 @@
     <table>
         <ul class="musica">
         <li *ngFor="let m of musicas" name="musicaslist" (click)="onSelect(m)">
-                <span class="badgeID">{{m.id}}</span> <span class="badge">{{m.artista}}</span> {{m.titulo}}
+                <span name="idlist" class="badgeID">{{m.id}}</span> <span name="artistalist"class="badge">{{m.artista}}</span><span name="titulolist">{{m.titulo}}</span> 
         </li>
     </ul>
     </table>

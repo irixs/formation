@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
             index: i++
           };
         });
+        console.log(this.navPages);
       }
 
     ngOnInit(): void {
