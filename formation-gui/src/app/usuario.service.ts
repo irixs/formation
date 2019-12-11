@@ -9,12 +9,12 @@ import { Usuario } from '../../../formation-common/usuario';
 export class UsuarioService {
 
     private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    private taURL = 'http://localhost:3000';
+    private formationURL = 'http://localhost:3000';
 
     constructor(private http: HttpClient) { }
 
     criar(usuario: Usuario): Observable<Usuario> {
-        return this.http.post<any>(this.taURL + "/usuario", usuario, { headers: this.headers })
+        return this.http.post<any>(this.formationURL + "/usuario", usuario, { headers: this.headers })
             .pipe(
                 retry(2),
                 map(res => { if (res.success) { return usuario; } else { return null; } })
@@ -22,14 +22,14 @@ export class UsuarioService {
     }
 
     atualizar(usuario: Usuario): Observable<Usuario> {
-        return this.http.put<any>(this.taURL + "/usuario", JSON.stringify(usuario), { headers: this.headers }).pipe(
+        return this.http.put<any>(this.formationURL + "/usuario", JSON.stringify(usuario), { headers: this.headers }).pipe(
             retry(2),
             map(res => { if (res.success) { return usuario; } else { return null; } })
         );
     }
 
     getUsuarios(): Observable<Usuario[]> {
-        return this.http.get<Usuario[]>(this.taURL + "/usuarios")
+        return this.http.get<Usuario[]>(this.formationURL + "/usuarios")
             .pipe(
                 retry(2)
             );

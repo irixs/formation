@@ -7,7 +7,7 @@
   <mat-form-field>
       <mat-label>Música</mat-label>
       <mat-select [(ngModel)]="musica">
-        <mat-option *ngFor="let musicaSelecionada of musicas" [value]="musicaSelecionada" (change)="selecionouMusica()">
+        <mat-option *ngFor="let musicaSelecionada of carregarMusicasComInteressados()" [value]="musicaSelecionada" (change)="selecionouMusica()">
           {{musicaSelecionada.titulo}} - {{musicaSelecionada.artista}}
         </mat-option>
       </mat-select>

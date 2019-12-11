@@ -22,13 +22,51 @@ export class MensagensComponent implements OnInit {
   constructor(private formacaoService: FormacaoService, private snackBar: MatSnackBar, private usuarioService: UsuarioService) { }
 
   ngOnInit() {
+    this.atualizarDados()
+  }
+
+  confirmarFormacao(formacao: Formacao) {
+    const usuario = this.usuarios.find(usuario => usuario.cpf === localStorage.getItem('loginCpf'));
+    usuario.participacoes = usuario.participacoes + 1;
+    formacao.usuariosVisualizados.push(usuario);
+
+    this.usuarioService.atualizar(usuario).subscribe(
+      (a) => { if (a !== null) this.snackBar.open('Confirmação realizada com sucesso!', 'OK'); }
+    );
+
+    this.formacaoService.atualizar(formacao).subscribe(
+      (a) => {this.atualizarDados();}
+    );
+    
+    
+  }
+
+  cancelarFormacao(formacao: Formacao) {
+    const usuario = this.usuarios.find(usuario => usuario.cpf === localStorage.getItem('loginCpf'));
+    formacao.usuariosVisualizados.push(usuario);
+    this.formacaoService.atualizar(formacao).subscribe(
+      (a) => {    this.atualizarDados();      }
+    );
+    const snackBar = this.snackBar.open('Cancelamento realizado com sucesso!', 'OK');
+  }
+
+  atualizarDados() {
+    this.formacoes = [];
+    this.filtro = [];
+    this.usuarios = [];
+    this.indices = [];
+
     this.formacaoService.getFormacoes().subscribe(formacoes => {
       this.formacoes = formacoes;
       for (let formacao of formacoes) {
-        let indice = formacao.usuarios.findIndex(usuario => usuario.cpf === localStorage.getItem('loginCpf'));
+        console.log(formacao);
+        let indice = formacao.usuarios.findIndex(usuarioPorIntegrante => usuarioPorIntegrante.find(usuario => usuario.cpf === localStorage.getItem('loginCpf')));
+        console.log(indice);
         if (indice !== -1) {
-          this.indices.push(indice);
-          this.filtro.push(formacao);
+          if (!formacao.usuariosVisualizados.find(usuario => usuario.cpf === localStorage.getItem('loginCpf'))) {
+            this.indices.push(indice);
+            this.filtro.push(formacao);
+          }
         }
       }
     });
@@ -38,17 +76,4 @@ export class MensagensComponent implements OnInit {
       msg => { alert(msg.message); }
     );
   }
-
-  confirmarFormacao() {
-    const usuario = this.usuarios.find(usuario => usuario.cpf === localStorage.getItem('loginCpf'));
-    usuario.participacoes = usuario.participacoes + 1;
-    this.usuarioService.atualizar(usuario).subscribe(
-      (a) => { if (a !== null) this.snackBar.open('Confirmação realizada com sucesso!', 'OK'); }
-    );
-  }
-
-  cancelarFormacao() {
-    const snackBar = this.snackBar.open('Cancelamento realizado com sucesso!', 'OK');
-  }
-
 }

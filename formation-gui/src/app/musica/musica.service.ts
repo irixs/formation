@@ -12,12 +12,12 @@ import { Musica } from './../../../../formation-common/musica';
 export class MusicasService {
 
     private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    private taURL = 'http://localhost:3000';
+    private formationURL = 'http://localhost:3000';
 
     constructor(private http: HttpClient) { }
 
     criar(musica: Musica): Observable<Musica> {
-        return this.http.post<any>(this.taURL + "/musicas", musica, { headers: this.headers })
+        return this.http.post<any>(this.formationURL + "/musicas", musica, { headers: this.headers })
             .pipe(
                 retry(2),
                 map(res => { if (res.success) { return musica; } else { return null; } })
@@ -25,14 +25,14 @@ export class MusicasService {
     }
 
     atualizar(musica: Musica): Observable<Musica> {
-        return this.http.put<any>(this.taURL + "/musicas", JSON.stringify(musica), { headers: this.headers }).pipe(
+        return this.http.put<any>(this.formationURL + "/musicas", JSON.stringify(musica), { headers: this.headers }).pipe(
             retry(2),
             map(res => { if (res.success) { return musica; } else { return null; } })
         );
     }
 
     getMusicas(): Observable<Musica[]> {
-        return this.http.get<Musica[]>(this.taURL + "/musica")
+        return this.http.get<Musica[]>(this.formationURL + "/musica")
             .pipe(
                 retry(2)
             );

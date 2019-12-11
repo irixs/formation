@@ -2,19 +2,26 @@
     <mat-card class="message-card" *ngFor="let formacao of filtro; let i = index">
 
     <mat-card-content>
-        <mat-card-title>Você foi selecionado para ser {{formacao.integrantes[indices[i]]}}!</mat-card-title>
+        <mat-card-title>Você foi selecionado para ser {{formacao.musica.integrantes[indices[i]]}}!</mat-card-title>
         <mat-card-subtitle>{{formacao.musica.titulo}} - {{formacao.musica.artista}}</mat-card-subtitle>
   
       <p>
         Formação final: <br>
-        <span *ngFor="let usuario of formacao.usuarios; let i = index">
-            {{usuario.nome}} é {{formacao.integrantes[i]}} <br>
-        </span>
+        <tr *ngFor="let integrante of formacao.musica.integrantes; let j = index">
+            <th>{{integrante}}</th>
+            
+            <th>
+              <ul *ngIf="formacao.usuarios[j] !== undefined">
+                <li *ngFor="let usuario of formacao.usuarios[j]">{{usuario.nome}}</li>
+              </ul>
+            </th>
+    
+        </tr>
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button (click)="confirmarFormacao()">Confirmar</button>
-      <button mat-button (click)="cancelarFormacao()">Cancelar</button>
+      <button mat-button (click)="confirmarFormacao(formacao)">Confirmar</button>
+      <button mat-button (click)="cancelarFormacao(formacao)">Cancelar</button>
     </mat-card-actions>
   </mat-card>
 </div>

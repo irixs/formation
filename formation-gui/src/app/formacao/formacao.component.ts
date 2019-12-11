@@ -34,6 +34,7 @@ export class FormacaoComponent implements OnInit {
 
   novaFormacao() {
     if (!this.criandoNovaFormacao) {
+      this.usuariosNovaFormacao = [[]];
       this.formacao = new Formacao();
       this.musicasService.getMusicas()
       .subscribe(
@@ -67,6 +68,10 @@ export class FormacaoComponent implements OnInit {
         },
         msg => { alert(msg.message); }
       );
+  }
+
+  carregarMusicasComInteressados() {
+      return this.musicas.filter(musica => musica.usuariosInteressados.length != 0)
   }
 
 }
