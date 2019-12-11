@@ -1,14 +1,12 @@
 {
   "name": "formation-server",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Servidor do formation",
   "main": "formation-server.js",
   "scripts": {
     "test": "npm run tsc && jasmine --config=./spec/support/jasmine.json",
     "tsc": "./node_modules/typescript/bin/tsc",
-    "tscCasa": "tsc",
-    "start": "npm run tsc && node compiledCode/formation-server/formation-server.js",
-    "startCasa": "npm run tscCasa && node compiledCode/formation-server/formation-server.js"
+    "start": "npm run tsc && node compiledCode/formation-server/formation-server.js"
   },
   "author": "Aline Gouveia, Íris Soares, Magnon Souza e Rebeca Oliveira",
   "license": "MIT",
@@ -21,10 +19,6 @@
   "devDependencies": {
     "typescript": "~3.5.3",
     "jasmine": "^2.8.0",
-    "@types/jasmine": "^2.8.9",
-    "jasmine-promises": "^0.4.1",
-    "request": "^2.34",
-    "request-promise": "^4.2.2",
-    "@types/request-promise": "^4.1.38"
+    "@types/jasmine": "^2.8.9"
   }
 }
