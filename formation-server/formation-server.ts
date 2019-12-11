@@ -49,11 +49,11 @@ formationserver.put('/usuario', function (req: express.Request, res: express.Res
 
 // MUSICA ---------------------------------------------------------------------------
 
-formationserver.get('/musica', function (req: express.Request, res: express.Response) {
+formationserver.get('/musicas', function (req: express.Request, res: express.Response) {
   res.send(JSON.stringify(cadastroM.getMusicas()));
 })
 
-formationserver.post('/musicas', function (req: express.Request, res: express.Response) {
+formationserver.post('/musica', function (req: express.Request, res: express.Response) {
   var musica: Musica = <Musica> req.body; //verificar se é mesmo Música!
   musica = cadastroM.cadastrar(musica);
   if (musica) {
@@ -63,7 +63,7 @@ formationserver.post('/musicas', function (req: express.Request, res: express.Re
   }
 })
 
-formationserver.put('/musicas', function (req: express.Request, res: express.Response) {
+formationserver.put('/musica', function (req: express.Request, res: express.Response) {
   var musica: Musica = <Musica> req.body;
   musica = cadastroM.atualizar(musica);
   if (musica) {

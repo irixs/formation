@@ -2,23 +2,28 @@
     <mat-grid-list cols="2" rowHeight="2:1">
         <mat-grid-tile>
             <div class="grid-container">
-                <h1 class="mat-h1">Login</h1>
+                <form name="login">
+                        <h1 class="mat-h1">Login</h1>
                 <mat-form-field>
-                    <input matInput [(ngModel)]="loginCpf" placeholder="CPF">
+                    <input matInput name="loginbox"[(ngModel)]="loginCpf" required placeholder="CPF">
                 </mat-form-field>
                 <button mat-raised-button color="primary" (click)="fazerLogin()">Fazer login</button>
+                </form>
             </div>
         </mat-grid-tile>
         <mat-grid-tile>
             <div class="grid-container">
+                    
+                    <form name="cadastro">
                     <h1 class="mat-h1">Cadastro</h1>
                     <mat-form-field>
-                        <input matInput [(ngModel)]="usuario.cpf" placeholder="CPF">
+                        <input matInput name="cpfbox" [(ngModel)]="usuario.cpf" required placeholder="CPF">
                     </mat-form-field>
                     <mat-form-field>
-                        <input matInput [(ngModel)]="usuario.nome" placeholder="Nome">
+                        <input matInput name="nomebox" [(ngModel)]="usuario.nome" required placeholder="Nome">
                     </mat-form-field>
                     <button mat-raised-button color="primary" (click)="criarUsuario(usuario)">Cadastrar</button>
+                    </form>
             </div>
         </mat-grid-tile>
     </mat-grid-list>

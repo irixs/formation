@@ -1,10 +1,8 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>Formation</span>
+    <span>Formation</span><span *ngIf='usuario !== undefined'>&nbsp;• {{ usuario.nome }}</span>
     <button mat-button class="logout-button" (click)="fazerLogout()"><mat-icon>logout</mat-icon> Sair</button>
-
   </mat-toolbar-row>
-
 </mat-toolbar>
 
 <nav mat-tab-nav-bar *ngIf="loginData != null">

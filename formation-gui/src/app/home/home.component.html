@@ -1,8 +1,13 @@
         <mat-toolbar-row>Músicas Disponíveis</mat-toolbar-row>
 
         <div class="music-container">
-        <mat-card class="music-card" *ngFor="let musica of musicas; let i = index"> <span>{{musica.titulo}} - {{ musica.artista }}</span>
-            <mat-slide-toggle class="corner" [(ngModel)]="interesses[i]" (change)="alterarInteresses(i)">Quero Participar!</mat-slide-toggle>
+        <mat-card class="music-card" *ngFor="let musica of musicas; let i = index"> <span>
+                <tr>
+                        <td name="titulolist">{{ musica.titulo }} - &nbsp;</td>
+                        <td name="artistalist">{{ musica.artista }}</td>
+                </tr>
+                </span>
+            <mat-slide-toggle class="corner" id="toggle" [(ngModel)]="interesses[i]" (change)="alterarInteresses(i)">Quero Participar!</mat-slide-toggle>
         </mat-card>
     </div>
         
