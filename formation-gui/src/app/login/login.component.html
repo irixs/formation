@@ -5,7 +5,7 @@
                 <form name="login">
                         <h1 class="mat-h1">Login</h1>
                 <mat-form-field>
-                    <input matInput name="cpf-login" [(ngModel)]="loginCpf" placeholder="CPF">
+                    <input matInput name="loginbox"[(ngModel)]="loginCpf" placeholder="CPF">
                 </mat-form-field>
                 <button mat-raised-button color="primary" (click)="fazerLogin()">Fazer login</button>
                 </form>
@@ -17,10 +17,10 @@
                     <form name="cadastro">
                     <h1 class="mat-h1">Cadastro</h1>
                     <mat-form-field>
-                        <input matInput name="cpf-cadastro" [(ngModel)]="usuario.cpf" required placeholder="CPF">
+                        <input matInput name="cpfbox" [(ngModel)]="usuario.cpf" placeholder="CPF">
                     </mat-form-field>
                     <mat-form-field>
-                        <input matInput name="nome-cadastro" [(ngModel)]="usuario.nome" required placeholder="Nome">
+                        <input matInput name="nomebox" [(ngModel)]="usuario.nome" placeholder="Nome">
                     </mat-form-field>
                     <button mat-raised-button color="primary" (click)="criarUsuario(usuario)">Cadastrar</button>
                     </form>
