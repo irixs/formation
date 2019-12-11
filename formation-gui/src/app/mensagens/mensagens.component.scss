@@ -1,0 +1,16 @@
+.message-card {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.message-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+}
+
+@media (min-width: 724px) {
+  .message-card {
+    width: calc(700px - 32px);
+   }
+}
