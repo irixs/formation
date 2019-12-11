@@ -3,19 +3,19 @@
 
    <form class="example-form">
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Título" [(ngModel)]="musica.titulo" name="titulobox">
+          <input matInput placeholder="Título" required [(ngModel)]="musica.titulo" name="titulobox">
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-                <input matInput placeholder="Artista" [(ngModel)]="musica.artista" name="artistabox">
+                <input matInput placeholder="Artista" required [(ngModel)]="musica.artista" name="artistabox">
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-                <input matInput placeholder="Integrantes" [(ngModel)]="stringIntegrantes" name="integrantesbox">
+                <input matInput placeholder="Integrantes" required [(ngModel)]="stringIntegrantes" name="integrantesbox">
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-                <input matInput placeholder="ID" [(ngModel)]="musica.id" name="idbox">
+                <input matInput placeholder="ID" required [(ngModel)]="musica.id" name="idbox">
         </mat-form-field>
         
       </form>

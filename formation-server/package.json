@@ -7,7 +7,7 @@
     "test": "npm run tsc && jasmine --config=./spec/support/jasmine.json",
     "tsc": "./node_modules/typescript/bin/tsc",
     "tscCasa": "tsc",
-    "start": "npm run tsc && node compiledCode/formation-server/formation-server.js",
+    "start": "npm run tscCasa && node compiledCode/formation-server/formation-server.js",
     "startCasa": "npm run tscCasa && node compiledCode/formation-server/formation-server.js"
   },
   "author": "Aline Gouveia, Íris Soares, Magnon Souza e Rebeca Oliveira",
